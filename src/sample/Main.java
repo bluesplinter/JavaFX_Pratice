@@ -55,7 +55,7 @@ public class Main extends Application {
         //=========================Main Menu=================================================
         //Main menu window
         Label mm_dog = new Label("Adopts Dogs");
-        GridPane.setConstraints(mm_dog,16,16);
+        GridPane.setConstraints(mm_dog,0,0);
 
         Label mm_rateBrands = new Label("Rate Brands");
         GridPane.setConstraints(mm_rateBrands,16,17);
@@ -76,26 +76,26 @@ public class Main extends Application {
         //=========================TextField=================================================
         //Username Label
         Label username_label = new Label("Username: ");
-        GridPane.setConstraints(username_label, 18,25);
+        GridPane.setConstraints(username_label, 0,0);
 
         // Username input
         TextField username_tf = new TextField();
         username_tf.setPromptText("Type username");
-        GridPane.setConstraints(username_tf,19,25);
+        GridPane.setConstraints(username_tf,1,0);
 
 
         //Password Label
         Label password_label = new Label("Password: ");
-        GridPane.setConstraints(password_label,18,26);
+        GridPane.setConstraints(password_label,0,1);
 
 
         //Text field Password
         TextField password_tf = new TextField();
-        GridPane.setConstraints(password_tf,19,26);
+        GridPane.setConstraints(password_tf,1,1);
 
         //Log in Button
         Button log_in = new Button("Log in");
-        GridPane.setConstraints(log_in,19,27);
+        GridPane.setConstraints(log_in,0,2);
         log_in.setOnAction( e -> window.setScene(MainMenu));
 
         //Back button
@@ -103,7 +103,7 @@ public class Main extends Application {
 
 
 
-        //========================CheckBox==================================================
+        //========================CheckBox Rating==================================================
         //Checkbox
         CheckBox email = new CheckBox("Email");
         CheckBox paypal = new CheckBox("PayPal");
@@ -119,7 +119,7 @@ public class Main extends Application {
         checkbox_choise.setAlignment(Pos.TOP_LEFT);
         GridPane.setConstraints(checkbox_choise,50,1);
 
-        //========================Drop-Down Menu==================================================
+        //========================Drop-Down Menu Rating ==================================================
         //Drop-down menu
         ChoiceBox<String> subject = new ChoiceBox<>();
         subject.getItems().addAll("PayPal", "Email", "Form", "Illegal", "Legal", "Noice");
@@ -146,14 +146,19 @@ public class Main extends Application {
         subject_dropdown.setOnAction( e -> getChoise(subject,rating_upgrade));
         GridPane.setConstraints(subject_dropdown,1,1);
 
-        Label dog_user = new Label("Name :");
-        GridPane.setConstraints(dog_user, 1, 0);
+
+        //========================Drop-Down Adopt Dog==================================================
+
+        Label dog_user_label = new Label("Adopter Name:");
+        GridPane.setConstraints(dog_user_label, 0, 0);
 
 
         dog_User = new TextField();
         dog_User.setEditable(true);
-        GridPane.setConstraints(dog_User, 2, 0);
+        GridPane.setConstraints(dog_User, 1, 0);
 
+        Label dog_breed_label = new Label("Breed:");
+        GridPane.setConstraints(dog_breed_label, 0, 1);
 
         //ComboBox dogs
         dogs = new ComboBox<>();
@@ -161,31 +166,41 @@ public class Main extends Application {
         dogs.setPromptText("Yorkie");
         dogs.setEditable(true);
         dogs.setOnAction(e -> System.out.println(dog_User.getText() + " chose " + dogs.getValue()));
-        GridPane.setConstraints(dogs, 3, 0);
+        GridPane.setConstraints(dogs, 1, 1);
 
         //Button for dogs
         Button submit_dogs = new Button("Search");
         submit_dogs.setOnAction(e -> System.out.println("Great choice! We will inform you as soon as " +
                 "there is a " + dogs.getValue() + " is available for adoption"));
-        GridPane.setConstraints(submit_dogs, 2, 1);
+        GridPane.setConstraints(submit_dogs, 0, 2);
 
 
 
         //===============================For All===========================================
-        Button back = new Button("<< Back");
-        back.setOnAction( e -> window.setScene(MainMenu));
-        GridPane.setConstraints(back,20,10);
+        Button Log_out = new Button("<< Log Out");
+        Log_out.setOnAction( e -> window.setScene(loglog_scene));
+        GridPane.setConstraints(Log_out,0,30);
+
+        Button back_brand = new Button("<< Back");
+        back_brand.setOnAction( e -> window.setScene(MainMenu));
+        GridPane.setConstraints(back_brand,0,30);
+
+        Button back_adoption = new Button("<< Back");
+        back_adoption.setOnAction( e -> window.setScene(MainMenu));
+        GridPane.setConstraints(back_adoption,0,30);
+
+
 
 
 
         //Scenes
-        LogIn.getChildren().addAll(username_label,username_tf,password_label,password_tf, log_in, back);
+        LogIn.getChildren().addAll(username_label,username_tf,password_label,password_tf, log_in);
 
-        dog_adoption.getChildren().addAll(dog_user,dogs,submit_dogs,dog_User, back);
+        dog_adoption.getChildren().addAll(dog_user_label,dogs,submit_dogs,dog_User, back_adoption, dog_breed_label);
 
-        rate_brand.getChildren().addAll(subject, rating_upgrade, subject_dropdown,back);
+        rate_brand.getChildren().addAll(subject, rating_upgrade, subject_dropdown, back_brand);
 
-        main_menu.getChildren().addAll(mm_butt_adopt,mm_butt_rate,mm_dog,mm_rateBrands, back);
+        main_menu.getChildren().addAll(mm_butt_adopt,mm_butt_rate,mm_dog,mm_rateBrands, Log_out);
 
         loglog_scene = new Scene(LogIn,500,500);
         dogAdoption_scene = new Scene(dog_adoption,500, 500);
