@@ -21,9 +21,10 @@ public class Main extends Application {
     Stage window;
     String pass = "name";
     ComboBox<String> dogs;
+    ListView<String> bikes;
     TextField dog_User;
     Parent root;
-    Scene loglog_scene, dogAdoption_scene, rateBrand_scene,MainMenu ;
+    Scene loglog_scene, dogAdoption_scene, rateBrand_scene,MainMenu,select_bike;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -31,44 +32,33 @@ public class Main extends Application {
 
 
 
-        GridPane LogIn = new GridPane();
-        LogIn.setPadding(new Insets (10,10,10,10));
-        LogIn.setVgap(10);
-        LogIn.setHgap(10);
-
-        GridPane dog_adoption = new GridPane();
-        dog_adoption.setPadding(new Insets (10,10,10,10));
-        dog_adoption.setHgap(10);
-        dog_adoption.setVgap(10);
-
-        GridPane rate_brand = new GridPane();
-        rate_brand.setPadding(new Insets (10,10,10,10));
-        rate_brand.setHgap(10);
-        rate_brand.setVgap(10);
-
-        GridPane main_menu = new GridPane();
-        rate_brand.setPadding(new Insets (10,10,10,10));
-        main_menu.setHgap(10);
-        main_menu.setVgap(10);
-
-
         //=========================Main Menu=================================================
-        //Main menu window
+        //Dog Adoption
         Label mm_dog = new Label("Adopts Dogs");
         GridPane.setConstraints(mm_dog,0,0);
 
-        Label mm_rateBrands = new Label("Rate Brands");
-        GridPane.setConstraints(mm_rateBrands,16,17);
-
-        //Buttons
         Button mm_butt_adopt = new Button("Adopt!");
         mm_butt_adopt.setOnAction( e -> window.setScene(dogAdoption_scene));
-        GridPane.setConstraints(mm_butt_adopt,17,16);
+        GridPane.setConstraints(mm_butt_adopt,1,0);
 
+        //Rate Brands
+        Label mm_rateBrands = new Label("Rate Brands");
+        GridPane.setConstraints(mm_rateBrands,0,1);
 
         Button mm_butt_rate = new Button("Rate!");
         mm_butt_rate.setOnAction( e -> window.setScene(rateBrand_scene));
-        GridPane.setConstraints(mm_butt_rate,17,17);
+        GridPane.setConstraints(mm_butt_rate,1,1);
+
+        //Buy Bikes
+        Label mm_bikes_label = new Label("Buy Bikes");
+        GridPane.setConstraints(mm_bikes_label,0,2);
+
+        Button mm_bikes_butt = new Button("Buy!");
+        mm_bikes_butt.setOnAction( e -> window.setScene(select_bike));
+        GridPane.setConstraints(mm_bikes_butt,1,2);
+
+
+
 
 
 
@@ -175,6 +165,18 @@ public class Main extends Application {
         GridPane.setConstraints(submit_dogs, 0, 2);
 
 
+        //========================ListView Buy Bikes ==================================================
+        bikes = new ListView<>();
+        bikes.getItems().addAll("Mountain Bike", "Hybrid Comfort", "Electric Bike", "Road Bike","Triathlon/Time Trial Bike",
+                "BMX Bike", "Cyclocross Bike", "Track Bike/Fixed Gear", "Tandem", "Adult Trike", "Folding Bike", "Kids Bike",
+                "Beach Cruiser", "Recumbent", "Normal", "Any", "The one", "The one you ride on", "Horse", "Goat");
+        bikes.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        GridPane.setConstraints(bikes,0,5);
+
+        Button buy_bikes = new Button("Buy");
+        buy_bikes.setOnAction( e -> bikes_bought());
+        GridPane.setConstraints(buy_bikes,5,30);
+
 
         //===============================For All===========================================
         Button Log_out = new Button("<< Log Out");
@@ -189,29 +191,77 @@ public class Main extends Application {
         back_adoption.setOnAction( e -> window.setScene(MainMenu));
         GridPane.setConstraints(back_adoption,0,30);
 
+        Button back_bikes = new Button("<< Back");
+        back_bikes.setOnAction( e -> window.setScene(MainMenu));
+        GridPane.setConstraints(back_bikes,0,30);
 
 
 
 
-        //Scenes
+
+        //Layouts
+
+        GridPane LogIn = new GridPane();
+        LogIn.setPadding(new Insets (10,10,10,10));
+        LogIn.setVgap(10);
+        LogIn.setHgap(10);
+
+        GridPane dog_adoption = new GridPane();
+        dog_adoption.setPadding(new Insets (10,10,10,10));
+        dog_adoption.setHgap(10);
+        dog_adoption.setVgap(10);
+
+        GridPane rate_brand = new GridPane();
+        rate_brand.setPadding(new Insets (10,10,10,10));
+        rate_brand.setHgap(10);
+        rate_brand.setVgap(10);
+
+        GridPane main_menu = new GridPane();
+        rate_brand.setPadding(new Insets (10,10,10,10));
+        main_menu.setHgap(10);
+        main_menu.setVgap(10);
+
+        GridPane selection_bikes = new GridPane();
+        rate_brand.setPadding(new Insets (10,10,10,10));
+        main_menu.setHgap(10);
+        main_menu.setVgap(10);
+
+
         LogIn.getChildren().addAll(username_label,username_tf,password_label,password_tf, log_in);
 
         dog_adoption.getChildren().addAll(dog_user_label,dogs,submit_dogs,dog_User, back_adoption, dog_breed_label);
 
         rate_brand.getChildren().addAll(subject, rating_upgrade, subject_dropdown, back_brand);
 
-        main_menu.getChildren().addAll(mm_butt_adopt,mm_butt_rate,mm_dog,mm_rateBrands, Log_out);
+        main_menu.getChildren().addAll(mm_butt_adopt,mm_butt_rate,mm_dog,mm_rateBrands, Log_out, mm_bikes_butt, mm_bikes_label);
+
+        selection_bikes.getChildren().addAll(buy_bikes, bikes,back_bikes);
+
+
 
         loglog_scene = new Scene(LogIn,500,500);
         dogAdoption_scene = new Scene(dog_adoption,500, 500);
         rateBrand_scene = new Scene(rate_brand,500,500);
         MainMenu = new Scene(main_menu, 500,500);
+        select_bike= new Scene(selection_bikes, 500,500);
 
 
         window.setScene(loglog_scene);
         window.setTitle("Password Com");
         window.show();
 
+    }
+
+    //============================Bikes Method==============================================
+    private void bikes_bought(){
+        String message = "";
+        ObservableList<String> bike;
+        bike = this.bikes.getSelectionModel().getSelectedItems();
+
+        for (String b: bike){
+            message += b + "\n";
+        }
+        System.out.println("Bikes Bought : \n" + message);
     }
 
     //==========================================================================
