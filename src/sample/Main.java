@@ -215,6 +215,7 @@ public class Main extends Application {
         makeBranch("Chimchar", fire);
         fire.setExpanded(false);
 
+        //Water Branch
         water = makeBranch("Grass Type", pokemon);
         makeBranch("Golduck", water);
         makeBranch("Poliwag", water);
@@ -230,6 +231,7 @@ public class Main extends Application {
         makeBranch("Piplup", water);
         water.setExpanded(false);
 
+        //grass Branch
         grass = makeBranch("Water Type", pokemon);
         makeBranch("Budew", grass);
         makeBranch("Treeko", grass);
