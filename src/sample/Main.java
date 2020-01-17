@@ -137,9 +137,8 @@ public class Main extends Application {
 
         //Drop-down select without Button
         ChoiceBox<String> rating_upgrade =  new ChoiceBox<>();
+
         rating_upgrade.getItems().addAll("1","2","3","4","5","6","7","8","9","10");
-        rating_upgrade.getSelectionModel().selectedItemProperty().addListener
-                ( (v, b, a) -> System.out.println("You rated " + subject.getValue() + " " + a + " stars."));
         GridPane.setConstraints(rating_upgrade,1,0);
 
 
@@ -272,6 +271,10 @@ public class Main extends Application {
         back_bikes.setOnAction( e -> window.setScene(MainMenu_scene));
         GridPane.setConstraints(back_bikes,0,30);
 
+        Button back_pokemon = new Button("<< Back");
+        back_pokemon.setOnAction( e -> window.setScene(MainMenu_scene));
+        GridPane.setConstraints(back_pokemon,0,15);
+
 
 
 
@@ -322,7 +325,7 @@ public class Main extends Application {
 
         selection_bikes_lay.getChildren().addAll(buy_bikes, bikes,back_bikes);
 
-        poke_tree_lay.getChildren().add(pokemon_tree);
+        poke_tree_lay.getChildren().addAll(pokemon_tree, back_pokemon);
 
 
 
